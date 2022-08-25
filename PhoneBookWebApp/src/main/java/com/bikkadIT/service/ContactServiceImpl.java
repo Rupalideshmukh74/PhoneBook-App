@@ -1,11 +1,14 @@
 package com.bikkadIT.service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import com.bikkadIT.model.Contact;
 import com.bikkadIT.repository.ContactRepository;
+
+
 
 public class ContactServiceImpl implements ContactServiceI {
 	
@@ -46,6 +49,39 @@ public class ContactServiceImpl implements ContactServiceI {
 		} else {
 			return true;
 		}
+	}
+
+	@Override
+	public boolean deleteById(Integer cid) {
+//		boolean existsById = contactRepository.existsById(cid);
+//		if (existsById) {
+//			contactRepository.deleteById(cid);
+//			return true;
+//		} else {
+//
+//			return false;
+//		}
+		// }
+
+//		 Optional<Contact> findById = contactRepository.findById(cid);
+//		
+//		if(findById.isPresent()) {
+//			contactRepository.deleteById(cid);
+//			return true;
+//			}else {
+//				return false;
+//			}
+
+		Optional<Contact> contact = contactRepository.findById(cid);
+
+		if (contact.isPresent()) {
+			Contact contact2 = contact.get();
+			contact2.setActiveSwitch('N');
+			contactRepository.save(contact2);
+			return true;
+		} else
+			return false;
+
 	}
 		
 	
